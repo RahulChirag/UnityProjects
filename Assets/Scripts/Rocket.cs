@@ -4,7 +4,6 @@ public class Rocket : MonoBehaviour
 {
     [SerializeField] float Force = 5f;
     [SerializeField] float forceMultiplier = 100f;
-    [SerializeField] RectTransform playerArea;
 
     Rigidbody2D rb;
 
@@ -38,14 +37,14 @@ public class Rocket : MonoBehaviour
     public void KeepInBoundries()
     {
         Vector2 position = transform.position;
-        Vector2 minBoundary = (Vector2)playerArea.rect.min + new Vector2(playerArea.position.x, playerArea.position.y);
-        Vector2 maxBoundary = (Vector2)playerArea.rect.max + new Vector2(playerArea.position.x, playerArea.position.y);
+        Vector2 minBoundary = (Vector2)RocketMaster.Instance.playerArea.rect.min + new Vector2(RocketMaster.Instance.playerArea.position.x, RocketMaster.Instance.playerArea.position.y);
+        Vector2 maxBoundary = (Vector2)RocketMaster.Instance.playerArea.rect.max + new Vector2(RocketMaster.Instance.playerArea.position.x, RocketMaster.Instance.playerArea.position.y);
         position.y = Mathf.Clamp(position.y, minBoundary.y, maxBoundary.y);
         transform.position = position;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
-    {
+    {                
         Destroy(collision.gameObject);
     }
 }
